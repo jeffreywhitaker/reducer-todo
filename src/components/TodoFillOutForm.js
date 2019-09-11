@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export default function TodoFillOutForm(props) {
     const [todoString, setTodoString] = useState("")
 
-    const makeNewTodoItem = (e) => {
+    const makeNewTodoItem = () => {
         return {
             item: todoString,
             completed: false,
