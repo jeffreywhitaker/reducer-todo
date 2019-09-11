@@ -1,18 +1,29 @@
-import React, { dispatch } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 export default function TodoFillOutForm(props) {
-    let ToDoDummyItem = {
-        item: 'DUMMY ITEM',
-        completed: false,
-        id: 38929875902343324
+    const [todoString, setTodoString] = useState("")
+
+    const makeNewTodoItem = (e) => {
+        return {
+            item: todoString,
+            completed: false,
+            id: Date.now()
+        }
+    }
+
+    const addToListDispatch = function() {
+        props.todoDispatch(
+            { type: "ADD_TO_LIST", payload: makeNewTodoItem() }
+        )
+        setTodoString("")
     }
 
     return (
         <TodoFormDiv>
-            <TodoFormInput onChange={props.handleMessageToState} placeholder="...add todo" />
-            <TodoFormButton onClick={() => {dispatch({ type: "ADD_TO_LIST", payload: ToDoDummyItem })}}>Add to List</TodoFormButton>
-            <TodoFormButton onClick={() => {dispatch({ type: "DELETE_FROM_LIST", payload: ToDoDummyItem })}}>Delete</TodoFormButton>
+            <TodoFormInput onChange={(e) => {setTodoString(e.target.value)}} placeholder="...add todo" value={todoString} />
+            <TodoFormButton onClick={addToListDispatch}>Add to List</TodoFormButton>
+            <TodoFormButton onClick={() => {props.todoDispatch({ type: "DELETE_COMPLETED" })}}>Clear Completed</TodoFormButton>
         </TodoFormDiv>
     )
 }

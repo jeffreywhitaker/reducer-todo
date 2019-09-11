@@ -8,16 +8,15 @@ import { initialState, todoReducer } from './reducers/todoReducer'
 
 
 export default function App() {
-  const [todos, setTodos] = useState("")
-  const [state, dispatch] = useReducer(todoReducer, initialState)
+    const [todoState, todoDispatch] = useReducer(todoReducer, initialState)
 
-  return (
-    <MainBody>
-      <MainHeader>Jeff's (Reducer) ToDo App</MainHeader>
-      <TodoFillOutForm useReducer={useReducer} />
-      <TodoList todos={todos}/>
-    </MainBody>
-  )
+    return (
+        <MainBody>
+            <MainHeader>Jeff's (Reducer) ToDo App</MainHeader>
+            <TodoFillOutForm todoDispatch={todoDispatch} />
+            <TodoList todos={todoState.todos} todoDispatch={todoDispatch}/>
+        </MainBody>
+    )
 }
 
 const MainBody = styled.section`

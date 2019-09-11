@@ -15,33 +15,35 @@ export const initialState = {
 
 export const todoReducer = (state, action) => {
     switch (action.type) {
-        case "ADD_TO_LIST":
-            return {
-                todos: [
-                    ...state.todos,
-                    action.payload
-                ]
-            }
-        case "DELETE_FROM_LIST":
-            return {
-                todos: [
-                    ...state.todos
-                ]
-            }
-        case "TOGGLE_COMPLETE":
-            let clickNewState = state.map(item => {
-                if (item.id == action.payload) {
+    case "ADD_TO_LIST":
+        return {
+            todos: [
+                ...state.todos,
+                action.payload
+            ]
+        }
+    case "DELETE_COMPLETED":
+        return {
+            todos: state.todos.filter(todo => {
+                if (todo.completed === true) {
+                    return false
+                } else return true
+            })
+        }
+    case "TOGGLE_COMPLETE":
+        return {
+            todos: state.todos.map(todo => {
+                if (todo.id === action.payload) {
                     return {
-                        ...item,
-                        completed: !item.completed
+                        ...todo,
+                        completed: !todo.completed
                     }
                 } else {
-                    return item
+                    return todo
                 }
             })
-            return clickNewState
-            
-        default:
-            return state
+        }
+    default:
+        return state
     }
 }

@@ -6,10 +6,10 @@ import Todo from './Todo'
 export default function TodoList(props) {
     return (
         <>
-            <SubHeader>Things to do:</SubHeader>
-            {props.todos.map((listItem) => {
-                    return <Todo handleSetAsComplete={props.handleSetAsComplete} item={listItem}  key={listItem.id}/>
-                })}
+        <SubHeader>Things to do:</SubHeader>
+        {props.todos.map((todo) => {
+            return <Todo todo={todo} key={todo.id} todoDispatch={props.todoDispatch}/>
+        })}
         </>
     )
 }
